@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '@/components/common/Card';
 import Button from '@/components/common/Button';
 import { LockIcon, BookOpen } from 'lucide-react';
@@ -10,16 +11,22 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showAuth, setShowAuth] = useState<'login' | 'register' | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleAuth = async (data: any) => {
     setIsLoading(true);
     try {
       // TODO: Implement actual authentication
       console.log('Auth data:', data);
-      toast({
-        title: "Success",
-        description: `${showAuth === 'login' ? 'Logged in' : 'Registered'} successfully!`,
-      });
+      
+      if (data.role === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        toast({
+          title: "Success",
+          description: "Student dashboard coming soon!",
+        });
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -28,7 +35,6 @@ const Index = () => {
       });
     } finally {
       setIsLoading(false);
-      setShowAuth(null);
     }
   };
 
