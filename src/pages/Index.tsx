@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '@/components/common/Card';
@@ -22,10 +21,7 @@ const Index = () => {
       if (data.role === 'admin') {
         navigate('/admin/dashboard');
       } else {
-        toast({
-          title: "Success",
-          description: "Student dashboard coming soon!",
-        });
+        navigate('/student/dashboard');
       }
     } catch (error) {
       toast({

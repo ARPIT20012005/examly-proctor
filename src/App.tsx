@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./pages/admin/Dashboard";
+import StudentDashboard from "./pages/student/Dashboard";
 import '@/styles/animations.css';
 
 const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/student/dashboard" element={<StudentDashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <Toaster />
