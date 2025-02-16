@@ -46,6 +46,8 @@ const AuthForm = ({ type, onSubmit }: AuthFormProps) => {
 
   return (
     <Card className="w-full max-w-md p-6">
+  
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
           <FormField
