@@ -3,9 +3,56 @@ import React, { useState } from 'react';
 import Card from '@/components/common/Card';
 import Button from '@/components/common/Button';
 import { LockIcon, BookOpen } from 'lucide-react';
+import AuthForm from '@/components/auth/AuthForm';
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showAuth, setShowAuth] = useState<'login' | 'register' | null>(null);
+  const { toast } = useToast();
+
+  const handleAuth = async (data: any) => {
+    setIsLoading(true);
+    try {
+      // TODO: Implement actual authentication
+      console.log('Auth data:', data);
+      toast({
+        title: "Success",
+        description: `${showAuth === 'login' ? 'Logged in' : 'Registered'} successfully!`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Authentication failed. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+      setShowAuth(null);
+    }
+  };
+
+  if (showAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md animate-fade-in">
+          <h1 className="text-3xl font-bold text-center mb-8">
+            {showAuth === 'login' ? 'Login' : 'Register'}
+          </h1>
+          <AuthForm
+            type={showAuth}
+            onSubmit={handleAuth}
+          />
+          <button
+            onClick={() => setShowAuth(null)}
+            className="mt-4 text-gray-600 hover:text-gray-900 text-center w-full"
+          >
+            Back to home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col items-center justify-center p-4">
@@ -31,7 +78,7 @@ const Index = () => {
               </p>
               <Button
                 variant="primary"
-                onClick={() => setIsLoading(true)}
+                onClick={() => setShowAuth('login')}
                 disabled={isLoading}
               >
                 Start Exam
@@ -50,7 +97,7 @@ const Index = () => {
               </p>
               <Button
                 variant="secondary"
-                onClick={() => setIsLoading(true)}
+                onClick={() => setShowAuth('login')}
                 disabled={isLoading}
               >
                 Login as Admin
